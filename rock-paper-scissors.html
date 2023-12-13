@@ -9,8 +9,16 @@
         <button id="button1" value = "rock">Rock</button>
         <button id="button2" value = "paper">Paper</button>
         <button id="button3" value = "scissor">Scissor</button>
+        <button onclick="resetScore()" value = "Reset">Reset Score</button>
 
         <script>
+
+            const score = {
+                wins: 0,
+                ties: 0,
+                loss: 0
+            }
+
             function gameStart(){
                 document.getElementById('button1').addEventListener('click', function() {
                 handleButtonClick('rock');
@@ -26,6 +34,7 @@
             };
 
             function handleButtonClick(selectedMove){
+
                 const randomNumber = Math.random();
                 let userMove = selectedMove;
 
@@ -44,14 +53,27 @@
 
                 if(computerMove === userMove){
                     result = 'Tie';
+                    score.ties++;
                 }else if((computerMove === 'rock' && userMove === 'scissor') || (computerMove === 'paper' && userMove === 'rock') || (computerMove === 'scissor' && userMove === 'paper')){
                     result = 'You Lose';
+                    score.loss++;
                 }else{
                     result = 'You win';
+                    score.wins++;
                 }
-                alert(`You picked ${userMove}. Computer picked ${computerMove}. ${result}.`);
+                alert(`You picked ${userMove}. Computer picked ${computerMove}. ${result}. \n Wins: ${score.wins}, loss: ${score.loss}, ties: ${score.ties}`);
                 console.log(result);
+
             };
+
+            function resetScore(){
+                    score.ties=0;
+                    score.wins=0;
+                    score.loss=0;
+
+                    console.log('Score Reset')
+                    alert(`Score Reset - \n Wins: ${score.wins} Loss: ${score.loss} Ties: ${score.ties}`)
+            }
 
             gameStart();
         </script>
