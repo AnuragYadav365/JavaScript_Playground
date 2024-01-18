@@ -4,11 +4,16 @@
         <title>Rock Paper Scissors</title>
     </head>
     <body>
-        <p>Rock Paper Scissors</p>
+        <h1>Rock Paper Scissors</h1>
 
         <button id="button1" value = "rock">Rock</button>
         <button id="button2" value = "paper">Paper</button>
         <button id="button3" value = "scissor">Scissor</button>
+
+        <p class="win-loss"></p>
+        <p class="move"></p>
+        <p class="show-score"></p>
+
         <button onclick="resetScore()" value = "Reset">Reset Score</button>
 
         <script>
@@ -20,6 +25,7 @@
             }
 
             function gameStart(){
+                resultPrint();
                 document.getElementById('button1').addEventListener('click', function() {
                 handleButtonClick('rock');
             });
@@ -61,7 +67,11 @@
                     result = 'You win';
                     score.wins++;
                 }
-                alert(`You picked ${userMove}. Computer picked ${computerMove}. ${result}. \n Wins: ${score.wins}, loss: ${score.loss}, ties: ${score.ties}`);
+
+                document.querySelector('.win-loss').innerHTML = result;
+                document.querySelector('.move').innerHTML = `Computer Move = ${computerMove},  Your Move = ${userMove}`;
+                resultPrint();
+
                 console.log(result);
 
             };
@@ -71,11 +81,19 @@
                     score.wins=0;
                     score.loss=0;
 
-                    console.log('Score Reset')
-                    alert(`Score Reset - \n Wins: ${score.wins} Loss: ${score.loss} Ties: ${score.ties}`)
+                    console.log('Score Reset');
+
+                    document.querySelector('.win-loss').innerHTML = '';
+                    document.querySelector('.move').innerHTML = '';
+                    resultPrint();
             }
 
+            function resultPrint(){
+                document.querySelector('.show-score').innerHTML = `Wins: ${score.wins}, Loses: ${score.loss}, Ties: ${score.ties}`;
+            }
             gameStart();
+
+
         </script>
     </body>
 </html>
